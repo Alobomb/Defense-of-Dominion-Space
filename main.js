@@ -6,7 +6,7 @@ var gameData = {
     credsPerKill: 1,
     killCreds: 0,
     resupplyCost: 5,
-    bulletsPerResupply: 10,
+    bulletsPerResupply: 15,
     bulletsPerResupplyCost: 15,
     bugCount: 10000000,
     killsPerStab: 0.5,
@@ -14,9 +14,10 @@ var gameData = {
     rankCost: 100,
     turretOneCount: 0,
     turretOneDamage: 1,
-    turretOneCost: 25,
+    turretOneCost: 10,
     turretOneInterval: 5000,
-    turretOneKills: 0
+    turretOneKills: 0,
+    headsetGet: 0
 }
 
 function shootBug() {
@@ -50,10 +51,10 @@ function buyResupply() {
 
 function upgradeResupply() {
     if (gameData.killCreds >= gameData.bulletsPerResupplyCost) {
+        gameData.killCreds -= gameData.bulletsPerResupplyCost
         gameData.bulletsPerResupply *= 2
         gameData.bulletsPerResupplyCost *= 3
         gameData.resupplyCost *= 2
-
         document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
         document.getElementById("upgradeResupply").innerHTML = "Requisition larger ammo dumps (Cost: " + gameData.bulletsPerResupplyCost + " KillCreds)"
         document.getElementById("buyResupply").innerHTML = "Call in an ammunition airdrop (Cost: " + gameData.resupplyCost + " KillCreds)"
@@ -78,14 +79,13 @@ function wpnUpgradeTwo() {
 function callTurretOne() {
     if (gameData.killCreds >= gameData.turretOneCost) {
         gameData.turretOneCount += 1
-        gameData.turretOneCost *= 3
         gameData.killCreds -= gameData.turretOneCost
+        gameData.turretOneCost *= 2
+        document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
         document.getElementById("turretOneCount").style.display = "block"
         document.getElementById("turretOneKills").style.display = "block"
-        document.getElementById("turretOneDmgUpgrade1").style.display = "block"
         document.getElementById("turretOneCount").innerHTML = "You currently have " + gameData.turretOneCount + " Small Caliber Autoturrets"
         document.getElementById("turretOne").innerHTML = "Call down a small caliber autoturret from orbit (Cost: " + gameData.turretOneCost + " KillCreds)"
-        
     }
 }
 
@@ -116,7 +116,38 @@ function checkAmmo() {
 
 function checkBugs() {
     document.getElementById("bugsRemaining").innerHTML = gameData.bugCount + " bugs polluting this world"
+    if (gameData.turretOneCount != 0 && gameData.turretOneDamage == 1) {
+        document.getElementById("turretOneDmgUpgrade1").style.display = "block"
+    } else {
+        document.getElementById("turretOneDmgUpgrade1").style.display = "none"
+    }
 }
+
+function headsetUpgradeOne() {
+    if (gameData.killCreds >= 40) {
+    gameData.killCreds -= 40
+    document.getElementById("headset").style.display = "none"
+    document.getElementById("headsetTwo").style.display = "block"
+    document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+    setInterval(shootBug, 1000)
+    }
+}
+
+function headsetUpgradeTwo() {
+    if (gameData.killCreds >= 300) {
+        gameData.killCreds -= 300
+        clearInterval(shootBug)
+        setInterval(shootBug, 500)
+        document.getElementById("headsetTwo").style.display = "none"
+        document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+    }
+}
+
+function checkKillCreds() {
+    document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+}
+
+
 
 var turretLoop = window.setInterval(function() {
     turretOneShoot()
@@ -125,4 +156,5 @@ var turretLoop = window.setInterval(function() {
 var mainGameLoop = window.setInterval(function() {
     checkAmmo()
     checkBugs()
+    checkKillCreds()
 }, 1000)

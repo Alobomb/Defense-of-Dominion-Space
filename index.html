@@ -16,6 +16,8 @@
     <button id="clickToShoot" onclick="shootBug();checkAmmo()">Blow a bug's brains out! (Cost: -1 Ammunition)</button> <br>
     <button id="buyResupply" onclick="buyResupply();checkAmmo()">Call in an ammunition airdrop (Cost: 5 KillCreds)</button> <br>
     <button id="upgradeResupply" onclick="upgradeResupply()">Requisition larger ammo dumps (Cost: 15 KillCreds)</button> <br> <br>
+    <button id="headset" onclick="headsetUpgradeOne()">Requisition a bluetooth headset. Now you can run and gun! (Cost: 40 KillCreds)</button>
+    <button id="headsetTwo" onclick="headsetUpgradeTwo()" style=display:none;>Upgrade your wireless connection, so you can spend less time repeating access codes! (Cost: 300 Killcreds)</button> <br>
 
     <button id="wpnUpgradeOne" onclick="wpnUpgradeOne()">Pick up your dead buddy's assault rifle (Requirement: 100 Kills)</button>
     <button style=display:none; id="wpnUpgradeTwo" onclick="wpnUpgradeTwo()">Scavenge a real-time incendiary ammunition converter (Requirement: 1000 Kills)</button>
@@ -24,7 +26,7 @@
 
     <p id=turretOneCount style=display:none;>You currently have 0 Small Caliber Autoturrets</p>
     <p id=turretOneKills style=display:none;>They have gotten 0 kills</p>
-    <button id="turretOne" onclick="callTurretOne()">Call down a small caliber autoturret from orbit (Cost: 50 KillCreds)</button>
+    <button id="turretOne" onclick="callTurretOne()">Call down a small caliber autoturret from orbit (Cost: 10 KillCreds)</button>
     <button id="turretOneDmgUpgrade1" onclick="upgradeTurretOne1()" style=display:none;>Jury-rig some extra barrels onto your turrets (Cost: 250 KillCreds)</button>
 
     <script src="main.js" charset="UTF-8" type="text/javascript"></script>
