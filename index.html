@@ -5,36 +5,141 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Defense of Dominion Space!</title>
+    <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+        </script>
 </head>
-<body>
-    <p>You don't know where the rest of your unit went. All you have is your gun, your radio, and ten million bugs to kill.</p>
-    <p id="bugsKilled">0 Bugs Fumigated</p>
-    <p id="bugsRemaining">10000000 bugs polluting this world</p>
-    <p id="killCred">0 Dominion KillCredits</p>
-    <p id="ammoCount">10 Ammunition Left</p>
-    <p id="rank">Current Rank: Private (1 Credit Per Kill)</p>
-    <button onclick="knifeBug()">Kill a larva with your knife</button>
-    <button id="clickToShoot" onclick="shootBug();checkAmmo()">Blow a bug's brains out! (Cost: -1 Ammunition)</button> <br>
-    <button id="buyResupply" onclick="buyResupply();checkAmmo()">Call in an ammunition airdrop (Cost: 5 KillCreds)</button> <br>
-    <button id="upgradeResupply" onclick="upgradeResupply()">Requisition larger ammo dumps (Cost: 15 KillCreds)</button> <br> <br>
-    <button id="headset" onclick="headsetUpgradeOne()">Requisition a bluetooth headset. Now you can run and gun! (Cost: 40 KillCreds)</button>
-    <button id="headsetTwo" onclick="headsetUpgradeTwo()" style=display:none;>Upgrade your wireless connection, so you can spend less time repeating access codes! (Cost: 300 Killcreds)</button> <br>
+<style>
+
+header {
+  background-color: rgb(24, 23, 23);
+  padding: 5px;
+  text-align: center;
+  font-size: 35px;
+  color: rgb(35, 255, 31);
+}
+
+</style>
+
+<body style="background-color:rgb(148, 121, 98)">
+<!-- Button Template <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="Template" onclick="knifeBug()">Template</a> -->
+    <header><h2>Defense of Dominion Space!</h2></header>
     <br>
-    <button id="wpnUpgradeOne" onclick="wpnUpgradeOne()">Pick up your dead buddy's assault rifle (Requirement: 100 Kills)</button>
-    <button style=display:none; id="wpnUpgradeTwo" onclick="wpnUpgradeTwo()">Scavenge a real-time incendiary ammunition converter (Requirement: 1000 Kills)</button>
-    <br>
+    <div class="container-fluid" style="line-height: 0.8;">
+      <div class="row">
+        <div class="col-sm-4">
 
-    <button id="promotionOne" onclick="promotionOne()">Apply for Private First Class (Requirement: 200 Kills)</button>
-    <button id="promotionTwo" onclick="promotionTwo()" style=display:none;>Apply to become a Corporal (Requirement: 700 Kills)</button>
-    <button id="promotionThree" onclick="promotionThree()" style=display:none;>Apply to become an NCO (Requirement: 1500 Kills)</button>
+        </div>
+        <div class="col-sm-4">
+          <div class="well well-sm" style="background-color: rgb(71, 15, 5); color:rgb(35, 255, 31)">
+            <p id="bugsRemaining" style="text-align: center; font-size: 20px;">10000000 bugs polluting this world</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="well well-sm" style="background-color: rgb(0, 0, 0); color:rgb(35, 255, 31)">
+          <p id="bugsKilled">0 Bugs Fumigated</p>
+          <p id="killIncome">0 Passive Kills Per Second</p>
 
-    <br> <br>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="well well-sm" style="background-color: rgb(0, 0, 0); color:rgb(35, 255, 31)">
+          <p id="ammoCount">10 Ammunition Left</p>
+          
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="well well-sm" style="background-color: rgb(0, 0, 0); color:rgb(35, 255, 31)">
+          <p id="killCred">0 Dominion KillCredits</p>
+          <p id="killCredIncome">0 Passive KillCreds Per Second</p>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="well well-sm" style="background-color: rgb(0, 0, 0); color:rgb(35, 255, 31)">
+          <p id="bulletsPerShoot">Firing 1 ammunition per trigger pull</p>
+          <p id="killsPerBullet">Killing 1 bug per ammunition</p>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="well well-sm" style="background-color: rgb(0, 0, 0); color:rgb(35, 255, 31)">
+          <p id="bulletsPerResupply">15 Ammunition Per Resupply</p>
+          <p id="bulletIncome">0 Passive Ammunition Income</p>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="well well-sm" style="background-color: rgb(0, 0, 0); color:rgb(35, 255, 31)">
+          <p id="rank">Current Rank: Private</p>
+          <p id="credsPerKill">1 Credit Per Kill (Rank)</p>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
 
-    <p id=turretOneCount style=display:none;>You currently have 0 Small Caliber Autoturrets</p>
-    <p id=turretOneKills style=display:none;>They have gotten 0 kills</p>
-    <button id="turretOne" onclick="callTurretOne()">Call down a small caliber autoturret from orbit (Cost: 10 KillCreds)</button>
-    <button id="turretOneDmgUpgrade1" onclick="upgradeTurretOne1()" style=display:none;>Jury-rig some extra barrels onto your turrets (Cost: 125 KillCreds)</button>
 
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="well" style="background-color: rgb(71, 15, 5); color:rgb(35, 255, 31)">
+            <p style="font-size: 20px; text-align: center; font-weight: bold;">Offense</p>
+            <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="Take down one of the little blighters before it can grow up. +0.5 Bugs Killed, +0.5 Dominion KillCredits" onclick="knifeBug()" style="background-color: black; color: white;">Kill a larvae with your knife</a> <br>
+            <a href="#" class="btn btn-default" id="clickToShoot" role="button" data-toggle="tooltip" data-placement="top" title="Do your damn job, soldier. See top bar for ammo and kill statistics." onclick="shootBug();checkAmmo()" style="background-color: black; color: white;">Blow a bug's brains out! (Cost: -1 Ammunition)</a>
+            </div>
+        </div>
+          <div class="col-sm-4">
+            <div class="well" style="background-color: rgb(71, 15, 5); color:rgb(255, 255, 255)">
+              <p>You don't know where the rest of your unit went. All you have is your gun, your radio, and ten million bugs to kill.</p>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="well" style="background-color: rgb(71, 15, 5); color:rgb(35, 255, 31)">
+            <p style="font-size: 20px; text-align: center; font-weight: bold;">Turrets</p>       
+            <p id="turretOneCount" style="display: none;">You currently have 0 Small Caliber Autoturrets</p>
+            <p id="turretOneKills" style="display: none;">They have gotten 0 kills</p>
+            <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="It's cute! It also runs on bug blood." id="turretOne" onclick="callTurretOne()" style="background-color: black; color: white;">Call down a small caliber autoturret from orbit (Cost: 10 KillCreds)</a> <br>
+            <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="You wonder how much it must drive up production costs to make the standard infantry rifle cross-compatible with the autoturrets. Increases turret 'kills per shot' by 1." id="turretOneDmgUpgrade1" onclick="upgradeTurretOne1()" style="display:none; background-color: black; color: white;">Jury-rig some extra barrels onto your turrets (Cost: 125 KillCreds)</a>
+        </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <div class=container-fluid>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="well" style="background-color: rgb(71, 15, 5); color:rgb(35, 255, 31)">
+              <p style="font-size: 20px; text-align: center; font-weight: bold;">Ammunition</p>
+              <a href="#" class="btn btn-default" id="buyResupply" role="button" data-toggle="tooltip" data-placement="top" title="Thankfully, the military subsidises your ammo usage. Requisitions 15 Ammunition." onclick="buyResupply();checkAmmo()" style="background-color: black; color: white;">Call in an ammunition airdrop (Cost: 5 KillCreds)</a> <br>
+              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="You want us to send you HOW much ammo? Doubles ammunition received, and its cost. Currently 15 Ammo per drop, next 30 Ammo per drop." id="upgradeResupply" onclick="upgradeResupply()" style="background-color: black; color: white;">Requisition larger ammo dumps (Cost: 15 KillCreds)</a>
+        </div>
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <div class="well" style="background-color: rgb(71, 15, 5); color:rgb(35, 255, 31)">
+              <p style="font-size: 20px; text-align: center; font-weight: bold;">Upgrades</p>
+              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="Hands free napalm! Lets you shoot your gun(s) once per second." id="headset" onclick="headsetUpgradeOne()" style="background-color: black; color: white;">Requisition a headset so you can shoot and talk (Cost: 40 KillCreds)</a> <br>
+              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="Maybe the 5G radio waves will give the bugs cancer. Increases shooting rate to twice per second." id="headsetTwo" onclick="headsetUpgradeTwo()" style="display:none; background-color: black; color: white;">Upgrade your wireless connection, so you can spend less time repeating access codes! (Cost: 300 Killcreds)</a>  <br>
+              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="This is getting out of hand, now there are two of them! Increases 'bullets per shot' to 2." id="wpnUpgradeOne" onclick="wpnUpgradeOne()" style="background-color: black; color: white;">Pick up your dead buddy's assault rifle (Requirement: 100 Kills)</a> <br>
+              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="This seems overpowered. How does this even work? Increases your 'kills per bullet' to 3." style=display:none; id="wpnUpgradeTwo" onclick="wpnUpgradeTwo()">Scavenge a real-time incendiary ammunition converter (Requirement: 1000 Kills)</a> <br>
+              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="I've got a first class private you could take a look at. Increases 'credits per kill' to 2." id="promotionOne" onclick="promotionOne()" style="background-color: black; color: white;">Apply for Private First Class (Requirement: 200 Kills)</a> <br>
+              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="You finally have the power to bully a whole two ranks worth of people. Increases 'credits per kill' to 4." id="promotionTwo" onclick="promotionTwo()" style="display:none; background-color: black; color: white;">Apply to become a Corporal (Requirement: 700 Kills)</a> <br>
+              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="Forget about bullying, now you can abuse your underlings and get paid for it! That is, if there was anyone else here yet. Increases 'credits per kill' to 10." id="promotionThree" onclick="promotionThree()" style="display:none; background-color: black; color: white;">Apply to become an NCO (Requirement: 1500 Kills)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="main.js" charset="UTF-8" type="text/javascript"></script>
 </body>
 </html>

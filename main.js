@@ -17,7 +17,10 @@ var gameData = {
     turretOneCost: 10,
     turretOneInterval: 5000,
     turretOneKills: 0,
-    headsetGet: 0
+    headsetGet: 0,
+    killIncome: 0,
+    killCredIncome: 0,
+    headsetLevel: 0
 }
 
 function shootBug() {
@@ -46,6 +49,7 @@ function buyResupply() {
         gameData.bullets += gameData.bulletsPerResupply
         document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
         document.getElementById("ammoCount").innerHTML = gameData.bullets + " Ammunition Left"
+        document.getElementById("buyResupply").title = "Thankfully, the military subsidises your ammo usage. Requisitions " + gameData.bulletsPerResupply + " Ammunition."
     }
 }
 
@@ -58,6 +62,9 @@ function upgradeResupply() {
         document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
         document.getElementById("upgradeResupply").innerHTML = "Requisition larger ammo dumps (Cost: " + gameData.bulletsPerResupplyCost + " KillCreds)"
         document.getElementById("buyResupply").innerHTML = "Call in an ammunition airdrop (Cost: " + gameData.resupplyCost + " KillCreds)"
+        document.getElementById("buyResupply").title = "Thankfully, the military subsidises your ammo usage. Requisitions " + gameData.bulletsPerResupply + " Ammunition."
+        document.getElementById("upgradeResupply").title = "You want us to send you HOW much ammo? Doubles ammunition received, and its cost. Currently " + gameData.bulletsPerResupply + " Ammo per drop, next " + (gameData.bulletsPerResupply * 2) + " Ammo per drop." + gameData.bulletsPerResupply + " Ammunition."
+        document.getElementById("bulletsPerResupply").innerHTML = gameData.bulletsPerResupply + " Ammunition Per Resupply"
     }
 }
 
@@ -66,6 +73,7 @@ function wpnUpgradeOne() {
         gameData.bulletsPerShoot = 2
         document.getElementById("wpnUpgradeOne").style.display = "none"
         document.getElementById("wpnUpgradeTwo").style.display = "inline"
+        document.getElementById("bulletsPerShoot").innerHTML = "Firing " + gameData.bulletsPerShoot + " per trigger pull"
     }
 }
 
@@ -73,6 +81,7 @@ function wpnUpgradeTwo() {
     if (gameData.kills > 500) {
         gameData.killsPerBullet = 3
         document.getElementById("wpnUpgradeTwo").style.display = "none"
+        document.getElementById("killsPerBullet").innerHTML = "Killing " + gameData.killsPerBullet + " bugs per ammunition"
     }
 }
 
@@ -118,7 +127,7 @@ function checkAmmo() {
 function checkBugs() {
     document.getElementById("bugsRemaining").innerHTML = gameData.bugCount + " bugs polluting this world"
     if (gameData.turretOneCount != 0 && gameData.turretOneDamage == 1) {
-        document.getElementById("turretOneDmgUpgrade1").style.display = "block"
+        document.getElementById("turretOneDmgUpgrade1").style.display = "inline-block"
     } else {
         document.getElementById("turretOneDmgUpgrade1").style.display = "none"
     }
@@ -127,6 +136,7 @@ function checkBugs() {
 function headsetUpgradeOne() {
     if (gameData.killCreds >= 40) {
     gameData.killCreds -= 40
+    gameData.headsetLevel = 1
     document.getElementById("headset").style.display = "none"
     document.getElementById("headsetTwo").style.display = "inline"
     document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
@@ -137,6 +147,7 @@ function headsetUpgradeOne() {
 function headsetUpgradeTwo() {
     if (gameData.killCreds >= 300) {
         gameData.killCreds -= 300
+        gameData.headsetLevel = 2
         clearInterval(shootBug)
         setInterval(shootBug, 500)
         document.getElementById("headsetTwo").style.display = "none"
@@ -147,7 +158,8 @@ function headsetUpgradeTwo() {
 function promotionOne() {
     if (gameData.kills >= 200) {
         gameData.credsPerKill = 2
-        document.getElementById("rank").innerHTML = "Current Rank: Private First Class (2 Credits Per Kill)"
+        document.getElementById("rank").innerHTML = "Current Rank: Private First Class"
+        document.getElementById("credsPerKill").innerHTML = gameData.credsPerKill + " Credits Per Kill"
         document.getElementById("promotionOne").style.display = "none"
         document.getElementById("promotionTwo").style.display = "inline"
     }
@@ -156,7 +168,8 @@ function promotionOne() {
 function promotionTwo() {
     if (gameData.kills >= 700) {
         gameData.credsPerKill = 4
-        document.getElementById("rank").innerHTML = "Current Rank: Corporal (4 Credits Per Kill)"
+        document.getElementById("rank").innerHTML = "Current Rank: Corporal"
+        document.getElementById("credsPerKill").innerHTML = gameData.credsPerKill + " Credits Per Kill"
         document.getElementById("promotionTwo").style.display = "none"
         document.getElementById("promotionThree").style.display = "inline"
     }
@@ -165,7 +178,8 @@ function promotionTwo() {
 function promotionThree() {
     if (gameData.kills >= 1500) {
         gameData.credsPerKill = 10
-        document.getElementById("rank").innerHTML = "Current Rank: Sergeant (10 Credits Per Kill)"
+        document.getElementById("rank").innerHTML = "Current Rank: Sergeant"
+        document.getElementById("credsPerKill").innerHTML = gameData.credsPerKill + " Credits Per Kill"
         document.getElementById("promotionThree").style.display = "none"
     }
 }
@@ -174,14 +188,20 @@ function checkKillCreds() {
     document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
 }
 
-
+function incomeCheck() {
+    gameData.killIncome = ((gameData.turretOneCount * gameData.turretOneDamage) + ((gameData.killsPerBullet * gameData.bulletsPerShoot) * gameData.headsetLevel))
+    gameData.killCredIncome = (((gameData.turretOneCount * gameData.turretOneDamage) + ((gameData.killsPerBullet * gameData.bulletsPerShoot) * gameData.headsetLevel)) * gameData.credsPerKill)
+    document.getElementById("killIncome").innerHTML = gameData.killIncome + " Passive Kills Per Second"
+    document.getElementById("killCredIncome").innerHTML = gameData.killCredIncome + " Passive KillCreds Per Second"
+}
 
 var turretLoop = window.setInterval(function() {
     turretOneShoot()
-}, 1200)
+}, 1000)
 
 var mainGameLoop = window.setInterval(function() {
     checkAmmo()
     checkBugs()
     checkKillCreds()
+    incomeCheck()
 }, 1000)
