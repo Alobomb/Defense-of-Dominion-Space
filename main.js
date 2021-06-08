@@ -92,6 +92,7 @@ function callTurretOne() {
 function upgradeTurretOne1() {
     if (gameData.killCreds >= 125) {
         gameData.turretOneDamage = 2
+        gameData.killCreds -= 125
         document.getElementById("turretOneDmgUpgrade1").style.display = "none"
     }
 }
@@ -127,7 +128,7 @@ function headsetUpgradeOne() {
     if (gameData.killCreds >= 40) {
     gameData.killCreds -= 40
     document.getElementById("headset").style.display = "none"
-    document.getElementById("headsetTwo").style.display = "block"
+    document.getElementById("headsetTwo").style.display = "inline"
     document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
     setInterval(shootBug, 1000)
     }
@@ -140,6 +141,32 @@ function headsetUpgradeTwo() {
         setInterval(shootBug, 500)
         document.getElementById("headsetTwo").style.display = "none"
         document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+    }
+}
+
+function promotionOne() {
+    if (gameData.kills >= 200) {
+        gameData.credsPerKill = 2
+        document.getElementById("rank").innerHTML = "Current Rank: Private First Class (2 Credits Per Kill)"
+        document.getElementById("promotionOne").style.display = "none"
+        document.getElementById("promotionTwo").style.display = "inline"
+    }
+}
+
+function promotionTwo() {
+    if (gameData.kills >= 700) {
+        gameData.credsPerKill = 4
+        document.getElementById("rank").innerHTML = "Current Rank: Corporal (4 Credits Per Kill)"
+        document.getElementById("promotionTwo").style.display = "none"
+        document.getElementById("promotionThree").style.display = "inline"
+    }
+}
+
+function promotionThree() {
+    if (gameData.kills >= 1500) {
+        gameData.credsPerKill = 10
+        document.getElementById("rank").innerHTML = "Current Rank: Sergeant (10 Credits Per Kill)"
+        document.getElementById("promotionThree").style.display = "none"
     }
 }
 
