@@ -27,8 +27,12 @@ function shootBug() {
         gameData.killCreds += (gameData.credsPerKill * (gameData.killsPerBullet * gameData.bulletsPerShoot))
         gameData.bullets -= gameData.bulletsPerShoot
         document.getElementById("bugsKilled").innerHTML = gameData.kills + " Bugs Fumigated"
+        document.getElementById("bugsKilled1").innerHTML = gameData.kills + " Bugs Fumigated"
         document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+        document.getElementById("killCred1").innerHTML = gameData.killCreds + " Dominion KillCredits"
+        document.getElementById("killCred2").innerHTML = gameData.killCreds + " Dominion KillCredits"
         document.getElementById("ammoCount").innerHTML = gameData.bullets + " Ammunition Left"
+        document.getElementById("ammoCount1").innerHTML = gameData.bullets + " Ammunition Left"
     }
 }
 
@@ -37,7 +41,10 @@ function knifeBug() {
     gameData.killCreds += (gameData.credsPerKill * gameData.killsPerStab)
     gameData.bugCount -= gameData.killsPerStab
     document.getElementById("bugsKilled").innerHTML = gameData.kills + " Bugs Fumigated"
+    document.getElementById("bugsKilled1").innerHTML = gameData.kills + " Bugs Fumigated"
     document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+    document.getElementById("killCred1").innerHTML = gameData.killCreds + " Dominion KillCredits"
+    document.getElementById("killCred2").innerHTML = gameData.killCreds + " Dominion KillCredits"
 }
 
 function buyResupply() {
@@ -45,7 +52,10 @@ function buyResupply() {
         gameData.killCreds -= gameData.resupplyCost
         gameData.bullets += gameData.bulletsPerResupply
         document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+        document.getElementById("killCred1").innerHTML = gameData.killCreds + " Dominion KillCredits"
+        document.getElementById("killCred2").innerHTML = gameData.killCreds + " Dominion KillCredits"
         document.getElementById("ammoCount").innerHTML = gameData.bullets + " Ammunition Left"
+        document.getElementById("ammoCount1").innerHTML = gameData.bullets + " Ammunition Left"
     }
 }
 
@@ -56,6 +66,8 @@ function upgradeResupply() {
         gameData.bulletsPerResupplyCost *= 3
         gameData.resupplyCost *= 2
         document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+        document.getElementById("killCred1").innerHTML = gameData.killCreds + " Dominion KillCredits"
+        document.getElementById("killCred2").innerHTML = gameData.killCreds + " Dominion KillCredits"
         document.getElementById("upgradeResupply").innerHTML = "Requisition larger ammo dumps (Cost: " + gameData.bulletsPerResupplyCost + " KillCreds)"
         document.getElementById("buyResupply").innerHTML = "Call in an ammunition airdrop (Cost: " + gameData.resupplyCost + " KillCreds)"
     }
@@ -66,6 +78,7 @@ function wpnUpgradeOne() {
         gameData.bulletsPerShoot = 2
         document.getElementById("wpnUpgradeOne").style.display = "none"
         document.getElementById("wpnUpgradeTwo").style.display = "inline"
+        document.getElementById("bulletsPerShoot").innerHTML = "Firing " + gameData.bulletsPerShoot + " per trigger pull"
     }
 }
 
@@ -73,6 +86,7 @@ function wpnUpgradeTwo() {
     if (gameData.kills > 500) {
         gameData.killsPerBullet = 3
         document.getElementById("wpnUpgradeTwo").style.display = "none"
+        document.getElementById("killsPerBullet").innerHTML = "Killing " + gameData.killsPerBullet + " bugs per ammunition"
     }
 }
 
@@ -82,6 +96,8 @@ function callTurretOne() {
         gameData.killCreds -= gameData.turretOneCost
         gameData.turretOneCost *= 2
         document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+        document.getElementById("killCred1").innerHTML = gameData.killCreds + " Dominion KillCredits"
+        document.getElementById("killCred2").innerHTML = gameData.killCreds + " Dominion KillCredits"
         document.getElementById("turretOneCount").style.display = "block"
         document.getElementById("turretOneKills").style.display = "block"
         document.getElementById("turretOneCount").innerHTML = "You currently have " + gameData.turretOneCount + " Small Caliber Autoturrets"
@@ -104,7 +120,10 @@ function turretOneShoot() {
     gameData.killCreds += (gameData.credsPerKill * (gameData.turretOneDamage * gameData.turretOneCount))
     document.getElementById("turretOneKills").innerHTML = "They have gotten " + gameData.turretOneKills + " kills"
     document.getElementById("bugsKilled").innerHTML = gameData.kills + " Bugs Fumigated"
+    document.getElementById("bugsKilled1").innerHTML = gameData.kills + " Bugs Fumigated"
     document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+    document.getElementById("killCred1").innerHTML = gameData.killCreds + " Dominion KillCredits"
+    document.getElementById("killCred2").innerHTML = gameData.killCreds + " Dominion KillCredits"
 }
 
 function checkAmmo() {
@@ -130,6 +149,8 @@ function headsetUpgradeOne() {
     document.getElementById("headset").style.display = "none"
     document.getElementById("headsetTwo").style.display = "inline"
     document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+    document.getElementById("killCred1").innerHTML = gameData.killCreds + " Dominion KillCredits"
+    document.getElementById("killCred2").innerHTML = gameData.killCreds + " Dominion KillCredits"
     setInterval(shootBug, 1000)
     }
 }
@@ -141,6 +162,8 @@ function headsetUpgradeTwo() {
         setInterval(shootBug, 500)
         document.getElementById("headsetTwo").style.display = "none"
         document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+        document.getElementById("killCred1").innerHTML = gameData.killCreds + " Dominion KillCredits"
+        document.getElementById("killCred2").innerHTML = gameData.killCreds + " Dominion KillCredits"
     }
 }
 
@@ -172,6 +195,8 @@ function promotionThree() {
 
 function checkKillCreds() {
     document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
+    document.getElementById("killCred1").innerHTML = gameData.killCreds + " Dominion KillCredits"
+    document.getElementById("killCred2").innerHTML = gameData.killCreds + " Dominion KillCredits"
 }
 
 

@@ -6,35 +6,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Defense of Dominion Space!</title>
 </head>
+<style>
+
+header {
+  background-color: rgb(24, 23, 23);
+  padding: 5px;
+  text-align: center;
+  font-size: 35px;
+  color: rgb(199, 98, 73);
+}
+
+stats {
+    display: block;
+    border: 2px solid;
+    padding: 10px;
+    margin: 5px;
+    width: 400px;
+    height: 190px;
+    position:absolute
+}
+
+attacks {
+    display: block;
+    border: 2px solid;
+    padding: 10px;
+    margin: 5px;
+    width: 408px;
+    height: 190px;
+    position: absolute;
+    left: 26%;
+    line-height: 0.7px;
+}
+
+upgrades {
+    display:block;
+    border: 2px solid;
+    padding: 10px;
+    margin: 5px;
+    width: 408px;
+    height: 210px;
+    position: absolute;
+    top: 440px;
+    left: 26%;
+    line-height: 1px;
+}
+
+ammoupgrade {
+    display: block;
+    border: 2px solid;
+    padding: 10px;
+    margin: 5px;
+    width: 500px;
+    height: 190px;
+    position: absolute;
+    left: 52%;
+    line-height: 0.7px;
+}
+
+turretone {
+    display:block;
+    border: 2px solid;
+    padding: 10px;
+    margin: 5px;
+    width: 400px;
+    height: 210px;
+    position: absolute;
+    top: 440px;
+    line-height: 0.7px;
+}
+
+</style>
 <body>
+    <header><h2>Defense of Dominion Space!</h2></header>
     <p>You don't know where the rest of your unit went. All you have is your gun, your radio, and ten million bugs to kill.</p>
+    <stats>
     <p id="bugsKilled">0 Bugs Fumigated</p>
     <p id="bugsRemaining">10000000 bugs polluting this world</p>
     <p id="killCred">0 Dominion KillCredits</p>
     <p id="ammoCount">10 Ammunition Left</p>
     <p id="rank">Current Rank: Private (1 Credit Per Kill)</p>
-    <button onclick="knifeBug()">Kill a larva with your knife</button>
-    <button id="clickToShoot" onclick="shootBug();checkAmmo()">Blow a bug's brains out! (Cost: -1 Ammunition)</button> <br>
-    <button id="buyResupply" onclick="buyResupply();checkAmmo()">Call in an ammunition airdrop (Cost: 5 KillCreds)</button> <br>
-    <button id="upgradeResupply" onclick="upgradeResupply()">Requisition larger ammo dumps (Cost: 15 KillCreds)</button> <br> <br>
-    <button id="headset" onclick="headsetUpgradeOne()">Requisition a bluetooth headset. Now you can run and gun! (Cost: 40 KillCreds)</button>
-    <button id="headsetTwo" onclick="headsetUpgradeTwo()" style=display:none;>Upgrade your wireless connection, so you can spend less time repeating access codes! (Cost: 300 Killcreds)</button> <br>
-    <br>
+</stats>
+<attacks>
+    <p id="bugsKilled1">0 Bugs Fumigated</p>
+    <button onclick="knifeBug()">Kill a larva with your knife</button><br>
+    <p id="ammoCount1">10 Ammunition Left</p>
+    <button id="clickToShoot" onclick="shootBug();checkAmmo()">Blow a bug's brains out! (Cost: -1 Ammunition)</button><br>
+</attacks>
+<ammoupgrade>
+    <p id="killCred1">0 Dominion KillCredits</p>
+    <p id="ammoCount2">10 Ammunition Left</p>
+    <button id="buyResupply" onclick="buyResupply();checkAmmo()">Call in an ammunition airdrop (Cost: 5 KillCreds)</button>
+    <button id="upgradeResupply" onclick="upgradeResupply()">Requisition larger ammo dumps (Cost: 15 KillCreds)</button>
+</ammoupgrade>
+<upgrades>
+    <p id="bugsKilled2">0 Bugs Fumigated</p>
+    <p id="killCred2">0 Dominion KillCredits</p>
+    <button id="headset" onclick="headsetUpgradeOne()">Requisition a headset so you can shoot and talk (Cost: 40 KillCreds)</button>
+    <button id="headsetTwo" onclick="headsetUpgradeTwo()" style=display:none;>Upgrade your wireless connection, so you can spend less time repeating access codes! (Cost: 300 Killcreds)</button>
+    <p id="bulletsPerShoot">Firing 1 ammunition per trigger pull</p>
+    <p id="killsPerBullet">Killing 1 bug per ammunition</p>
     <button id="wpnUpgradeOne" onclick="wpnUpgradeOne()">Pick up your dead buddy's assault rifle (Requirement: 100 Kills)</button>
     <button style=display:none; id="wpnUpgradeTwo" onclick="wpnUpgradeTwo()">Scavenge a real-time incendiary ammunition converter (Requirement: 1000 Kills)</button>
-    <br>
-
+    <p id="rank1">Current Rank: Private (1 Credit Per Kill)</p>
     <button id="promotionOne" onclick="promotionOne()">Apply for Private First Class (Requirement: 200 Kills)</button>
     <button id="promotionTwo" onclick="promotionTwo()" style=display:none;>Apply to become a Corporal (Requirement: 700 Kills)</button>
     <button id="promotionThree" onclick="promotionThree()" style=display:none;>Apply to become an NCO (Requirement: 1500 Kills)</button>
-
-    <br> <br>
-
+</upgrades>
+    <turretone>
     <p id=turretOneCount style=display:none;>You currently have 0 Small Caliber Autoturrets</p>
     <p id=turretOneKills style=display:none;>They have gotten 0 kills</p>
     <button id="turretOne" onclick="callTurretOne()">Call down a small caliber autoturret from orbit (Cost: 10 KillCreds)</button>
     <button id="turretOneDmgUpgrade1" onclick="upgradeTurretOne1()" style=display:none;>Jury-rig some extra barrels onto your turrets (Cost: 125 KillCreds)</button>
-
+</turretone>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="main.js" charset="UTF-8" type="text/javascript"></script>
 </body>
 </html>
