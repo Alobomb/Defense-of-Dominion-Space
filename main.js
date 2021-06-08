@@ -120,7 +120,7 @@ function checkBugs() {
 
 var turretLoop = window.setInterval(function() {
     turretOneShoot()
-}, 2500)
+}, 1200)
 
 var mainGameLoop = window.setInterval(function() {
     checkAmmo()
