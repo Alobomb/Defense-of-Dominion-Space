@@ -20,7 +20,11 @@ var gameData = {
     headsetGet: 0,
     killIncome: 0,
     killCredIncome: 0,
-    headsetLevel: 0
+    headsetLevel: 0,
+    nests: 0,
+    bugGrowth: 0.001,
+    oldBugCount: 10000000,
+    savedAgo: 15
 }
 
 function shootBug() {
@@ -53,70 +57,9 @@ function buyResupply() {
     }
 }
 
-function upgradeResupply() {
-    if (gameData.killCreds >= gameData.bulletsPerResupplyCost) {
-        gameData.killCreds -= gameData.bulletsPerResupplyCost
-        gameData.bulletsPerResupply *= 2
-        gameData.bulletsPerResupplyCost *= 3
-        gameData.resupplyCost *= 2
-        document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
-        document.getElementById("upgradeResupply").innerHTML = "Requisition larger ammo dumps (Cost: " + gameData.bulletsPerResupplyCost + " KillCreds)"
-        document.getElementById("buyResupply").innerHTML = "Call in an ammunition airdrop (Cost: " + gameData.resupplyCost + " KillCreds)"
-        document.getElementById("buyResupply").title = "Thankfully, the military subsidises your ammo usage. Requisitions " + gameData.bulletsPerResupply + " Ammunition."
-        document.getElementById("upgradeResupply").title = "You want us to send you HOW much ammo? Doubles ammunition received, and its cost. Currently " + gameData.bulletsPerResupply + " Ammo per drop, next " + (gameData.bulletsPerResupply * 2) + " Ammo per drop." + gameData.bulletsPerResupply + " Ammunition."
-        document.getElementById("bulletsPerResupply").innerHTML = gameData.bulletsPerResupply + " Ammunition Per Resupply"
-    }
-}
-
-function wpnUpgradeOne() {
-    if (gameData.kills > 100) {
-        gameData.bulletsPerShoot = 2
-        document.getElementById("wpnUpgradeOne").style.display = "none"
-        document.getElementById("wpnUpgradeTwo").style.display = "inline"
-        document.getElementById("bulletsPerShoot").innerHTML = "Firing " + gameData.bulletsPerShoot + " per trigger pull"
-    }
-}
-
-function wpnUpgradeTwo() {
-    if (gameData.kills > 500) {
-        gameData.killsPerBullet = 3
-        document.getElementById("wpnUpgradeTwo").style.display = "none"
-        document.getElementById("killsPerBullet").innerHTML = "Killing " + gameData.killsPerBullet + " bugs per ammunition"
-    }
-}
-
-function callTurretOne() {
-    if (gameData.killCreds >= gameData.turretOneCost) {
-        gameData.turretOneCount += 1
-        gameData.killCreds -= gameData.turretOneCost
-        gameData.turretOneCost *= 2
-        document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
-        document.getElementById("turretOneCount").style.display = "block"
-        document.getElementById("turretOneKills").style.display = "block"
-        document.getElementById("turretOneCount").innerHTML = "You currently have " + gameData.turretOneCount + " Small Caliber Autoturrets"
-        document.getElementById("turretOne").innerHTML = "Call down a small caliber autoturret from orbit (Cost: " + gameData.turretOneCost + " KillCreds)"
-    }
-}
-
-function upgradeTurretOne1() {
-    if (gameData.killCreds >= 125) {
-        gameData.turretOneDamage = 2
-        gameData.killCreds -= 125
-        document.getElementById("turretOneDmgUpgrade1").style.display = "none"
-    }
-}
-
-function turretOneShoot() {
-    gameData.kills += (gameData.turretOneDamage * gameData.turretOneCount)
-    gameData.turretOneKills += (gameData.turretOneDamage * gameData.turretOneCount)
-    gameData.bugCount -= (gameData.turretOneDamage * gameData.turretOneCount)
-    gameData.killCreds += (gameData.credsPerKill * (gameData.turretOneDamage * gameData.turretOneCount))
-    document.getElementById("turretOneKills").innerHTML = "They have gotten " + gameData.turretOneKills + " kills"
-    document.getElementById("bugsKilled").innerHTML = gameData.kills + " Bugs Fumigated"
-    document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
-}
-
 function checkAmmo() {
+    document.getElementById("ammoCount").innerHTML = gameData.bullets + " Ammunition Left"
+    document.getElementById("bulletsPerResupply").innerHTML = gameData.bulletsPerResupply + " Ammunition Per Resupply"
     if (gameData.bullets == 0) {
         document.getElementById("clickToShoot").innerHTML = "Out of Ammunition!"
     } else {
@@ -133,57 +76,6 @@ function checkBugs() {
     }
 }
 
-function headsetUpgradeOne() {
-    if (gameData.killCreds >= 40) {
-    gameData.killCreds -= 40
-    gameData.headsetLevel = 1
-    document.getElementById("headset").style.display = "none"
-    document.getElementById("headsetTwo").style.display = "inline"
-    document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
-    setInterval(shootBug, 1000)
-    }
-}
-
-function headsetUpgradeTwo() {
-    if (gameData.killCreds >= 300) {
-        gameData.killCreds -= 300
-        gameData.headsetLevel = 2
-        clearInterval(shootBug)
-        setInterval(shootBug, 500)
-        document.getElementById("headsetTwo").style.display = "none"
-        document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
-    }
-}
-
-function promotionOne() {
-    if (gameData.kills >= 200) {
-        gameData.credsPerKill = 2
-        document.getElementById("rank").innerHTML = "Current Rank: Private First Class"
-        document.getElementById("credsPerKill").innerHTML = gameData.credsPerKill + " Credits Per Kill"
-        document.getElementById("promotionOne").style.display = "none"
-        document.getElementById("promotionTwo").style.display = "inline"
-    }
-}
-
-function promotionTwo() {
-    if (gameData.kills >= 700) {
-        gameData.credsPerKill = 4
-        document.getElementById("rank").innerHTML = "Current Rank: Corporal"
-        document.getElementById("credsPerKill").innerHTML = gameData.credsPerKill + " Credits Per Kill"
-        document.getElementById("promotionTwo").style.display = "none"
-        document.getElementById("promotionThree").style.display = "inline"
-    }
-}
-
-function promotionThree() {
-    if (gameData.kills >= 1500) {
-        gameData.credsPerKill = 10
-        document.getElementById("rank").innerHTML = "Current Rank: Sergeant"
-        document.getElementById("credsPerKill").innerHTML = gameData.credsPerKill + " Credits Per Kill"
-        document.getElementById("promotionThree").style.display = "none"
-    }
-}
-
 function checkKillCreds() {
     document.getElementById("killCred").innerHTML = gameData.killCreds + " Dominion KillCredits"
 }
@@ -193,15 +85,44 @@ function incomeCheck() {
     gameData.killCredIncome = (((gameData.turretOneCount * gameData.turretOneDamage) + ((gameData.killsPerBullet * gameData.bulletsPerShoot) * gameData.headsetLevel)) * gameData.credsPerKill)
     document.getElementById("killIncome").innerHTML = gameData.killIncome + " Passive Kills Per Second"
     document.getElementById("killCredIncome").innerHTML = gameData.killCredIncome + " Passive KillCreds Per Second"
+    document.getElementById("credsPerKill").innerHTML = gameData.credsPerKill + " Credits Per Kill"
 }
 
-var turretLoop = window.setInterval(function() {
-    turretOneShoot()
-}, 1000)
+function bugBreed() {
+    gameData.bugCount += (Math.round(gameData.bugCount * 0.0000123))
+}
 
 var mainGameLoop = window.setInterval(function() {
     checkAmmo()
-    checkBugs()
     checkKillCreds()
     incomeCheck()
 }, 1000)
+
+var bugBreedLoop = window.setInterval(function() {
+    bugBreed()
+    checkBugs()
+}, 100)
+
+function incrementTimer() {
+    gameData.savedAgo -= 1
+    document.getElementById("savedAgo").innerHTML = "Last saved " + gameData.savedAgo + " seconds ago."
+}
+
+function resetTimer() {
+    gameData.savedAgo = 15
+    document.getElementById("savedAgo").innerHTML = "Last saved " + gameData.savedAgo + " seconds ago."
+}
+
+var timerLoop = window.setInterval(function() {
+    incrementTimer()
+}, 1000)
+
+/* var saveGameLoop = window.setInterval(function() {
+    localStorage.setItem("DoDSSave", JSON.stringify(gameData))
+    resetTimer()
+  }, 15000)
+
+  var savegame = JSON.parse(localStorage.getItem("DoDSSave"))
+if (savegame !== null) {
+  gameData = savegame
+} */

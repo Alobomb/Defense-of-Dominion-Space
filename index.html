@@ -26,6 +26,7 @@ header {
 <body style="background-color:rgb(148, 121, 98)">
 <!-- Button Template <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="Template" onclick="knifeBug()">Template</a> -->
     <header><h2>Defense of Dominion Space!</h2></header>
+    <p id="savedAgo">Last saved 15 seconds ago.</p>
     <br>
     <div class="container-fluid" style="line-height: 0.8;">
       <div class="row">
@@ -127,9 +128,9 @@ header {
             <div class="well" style="background-color: rgb(71, 15, 5); color:rgb(35, 255, 31)">
               <p style="font-size: 20px; text-align: center; font-weight: bold;">Upgrades</p>
               <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="Hands free napalm! Lets you shoot your gun(s) once per second." id="headset" onclick="headsetUpgradeOne()" style="background-color: black; color: white;">Requisition a headset so you can shoot and talk (Cost: 40 KillCreds)</a> <br>
-              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="Maybe the 5G radio waves will give the bugs cancer. Increases shooting rate to twice per second." id="headsetTwo" onclick="headsetUpgradeTwo()" style="display:none; background-color: black; color: white;">Upgrade your wireless connection, so you can spend less time repeating access codes! (Cost: 300 Killcreds)</a>  <br>
+              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="Maybe the 5G radio waves will give the bugs cancer. Increases shooting rate to twice per second." id="headsetTwo" onclick="headsetUpgradeTwo()" style="display:none; background-color: black; color: white;">Upgrade your wireless connection, so you can spend less time <br> repeating access codes! (Cost: 300 Killcreds)</a>  <br>
               <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="This is getting out of hand, now there are two of them! Increases 'bullets per shot' to 2." id="wpnUpgradeOne" onclick="wpnUpgradeOne()" style="background-color: black; color: white;">Pick up your dead buddy's assault rifle (Requirement: 100 Kills)</a> <br>
-              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="This seems overpowered. How does this even work? Increases your 'kills per bullet' to 3." style=display:none; id="wpnUpgradeTwo" onclick="wpnUpgradeTwo()">Scavenge a real-time incendiary ammunition converter (Requirement: 1000 Kills)</a> <br>
+              <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="This seems overpowered. How does this even work? Increases your 'kills per bullet' to 3." style="display:none; background-color: black; color: white;" id="wpnUpgradeTwo" onclick="wpnUpgradeTwo()">Scavenge a real-time incendiary ammunition converter <br> (Requirement: 1000 Kills)</a> <br>
               <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="I've got a first class private you could take a look at. Increases 'credits per kill' to 2." id="promotionOne" onclick="promotionOne()" style="background-color: black; color: white;">Apply for Private First Class (Requirement: 200 Kills)</a> <br>
               <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="You finally have the power to bully a whole two ranks worth of people. Increases 'credits per kill' to 4." id="promotionTwo" onclick="promotionTwo()" style="display:none; background-color: black; color: white;">Apply to become a Corporal (Requirement: 700 Kills)</a> <br>
               <a href="#" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="Forget about bullying, now you can abuse your underlings and get paid for it! That is, if there was anyone else here yet. Increases 'credits per kill' to 10." id="promotionThree" onclick="promotionThree()" style="display:none; background-color: black; color: white;">Apply to become an NCO (Requirement: 1500 Kills)</a>
@@ -141,5 +142,7 @@ header {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="main.js" charset="UTF-8" type="text/javascript"></script>
+    <script src="turrets.js" charset="UTF-8" type="text/javascript"></script>
+    <script src="upgrades.js" charset="UTF-8" type="text/javascript"></script>
 </body>
 </html>
